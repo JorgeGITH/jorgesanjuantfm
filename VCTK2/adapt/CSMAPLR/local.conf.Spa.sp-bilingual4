@@ -1,0 +1,50 @@
+WD_EMIME=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo
+VC_PATH=/autofs/home/gth07a/barra/repo/research/VCTK2/bin
+INTER_INPUT_FLABEL=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/inter-module/labels/Spa/sp-bilingual4/
+INTER_INPUT_FEATURE=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/inter-module/features/Spa/sp-bilingual4/
+INTER_INPUT_GV=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/inter-module/gv/Spa/sp-bilingual4/
+INTER_OUTPUT_ENGINE=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/inter-module/hts_engine/Spa/sp-bilingual4/
+INTER_OUTPUT_ALIGN=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/inter-module/labels/Spa/sp-bilingual4/
+AVMS=(sp-bilingual2)
+MODEL_DIR=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/models/Spa/spalex/
+TMP_DIR=/autofs/home/gth07a/barra/repo/research/VCTK2/Research-Demo/adapt/CSMAPLR/tmp/Spa/sp-bilingual4
+### GENERAL SETTINGS###
+
+WORK_ROOT=${WD_EMIME}/adapt/CSMAPLR
+SCRIPT_DIR=${WORK_ROOT}/scripts
+
+# Mel-cepstral analysis 
+mcorder=60
+mband=5
+
+# Aperiodicity analysis
+baporder=25
+bband=3
+
+# Setting for MLLR/SMAPLR/SVBLR/CMLLR/CSMAPLR 
+linear="SVBLR"
+
+# # of iteration of HERest (>= 1)
+FLAG_NITERATION=2
+# Apply State duration adaptation as well as 
+# Spectrum, F0 and aperiodicity adaptation 
+FLAG_DUR_ADAPTATION=1
+
+# setting for SMAP 
+FLAG_SMAPSIGMA=100.0
+
+# Regression class tree 
+treeprune=100.0
+mcepthresh=4000.0
+f0thresh=500.0
+bapthresh=1000.0
+durthresh=500.0
+
+# Setting for MAP adaptation 
+maptau=50 
+
+# Flag to save HTK models as well as hts_engine models 
+FLAG_HTK_MODELS=0
+
+# Flag for the optimal interpolation
+FLAG_INTERPOLATION=0

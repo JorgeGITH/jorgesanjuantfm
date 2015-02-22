@@ -1,0 +1,86 @@
+# Global configuration file for all sub-modules.
+
+##########################################################################################
+# ROOT PATHS
+##########################################################################################
+
+# Root path for EMIME Research Demo and associated tools
+#
+
+$ROOTDIR                  = "/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2";
+
+# This is the EMIME Research Demo's working directory, as well as
+# the location of all configuration files.
+
+$WD_EMIME                 = "${ROOTDIR}/Research-Demo";
+
+##########################################################################################
+# PROGRAM PATH
+##########################################################################################
+
+# Here are global toolkits' path for EMIME workspace
+# You can modify these pathes according your local environment
+
+$TOOL_VC                  = "${ROOTDIR}/bin";
+$TOOL_FESTIVAL            = "${ROOTDIR}/festival/bin"; 
+$TOOL_EST                 = "${ROOTDIR}/speech_tools/bin"; 
+$TOOL_LPF                 = "${ROOTDIR}/lpf";
+
+##########################################################################################
+# DATABASE DIRECTORY
+##########################################################################################
+
+# Here are global database path for EMIME workspace
+
+$DATASET_WAV              = "${WD_EMIME}/database/wav";
+$DATASET_TXT              = "${WD_EMIME}/database/txt";
+
+##########################################################################################
+# SOURCE LANGUAGE AND DATABASE SETTING
+##########################################################################################
+
+# Definition of source language to be worked on in one run
+
+$LANG                     = "Spa";
+$DATA                     = "XXSPEAKERXX";
+$TMODEL                   = "(XXMODELXX)";
+$PHONESET                 = "spalex";
+$AVSPEAKERS               = "(sp-bilingual2)";
+
+##########################################################################################
+# TEMPORARY DIRECTORY
+##########################################################################################
+
+# Furthermore, paths of all the inter-module files being exchanged
+# between the baseline or derived modules also depend on it.
+
+$INTER_MODULE             = "${WD_EMIME}/inter-module";
+$INTER_MODULE_RAW         = "${INTER_MODULE}/raw";
+$INTER_MODULE_VAD         = "${INTER_MODULE}/voice_activity";
+$INTER_MODULE_F0          = "${INTER_MODULE}/f0";
+$INTER_MODULE_MCEP        = "${INTER_MODULE}/mcep";
+$INTER_MODULE_BAP         = "${INTER_MODULE}/bap";
+$INTER_MODULE_FEATURES    = "${INTER_MODULE}/features";
+$INTER_MODULE_GV          = "${INTER_MODULE}/gv";
+$INTER_MODULE_LABELS      = "${INTER_MODULE}/labels";
+$INTER_MODULE_CLEANRAW    = "${INTER_MODULE}/cleaned_raw";
+$INTER_MODULE_SENTENCES   = "${INTER_MODULE}/sentences";
+$INTER_MODULE_HTS_ENGINE  = "${INTER_MODULE}/hts_engine";
+
+##########################################################################################
+# SWITCH
+##########################################################################################
+
+$SW1 = 1; # fa-tts
+$SW2 = 1; # adapt-prep
+$SW3 = 1; # adaptation for 1st pass
+$SW4 = 0; # data cleaning
+$SW5 = 0; # label cleaning 
+$SW6 = 0; # adaptation for refinement 
+$SW7 = 0; # speaker-dependent HMM training if there are 1000 audio files or above. 
+$SW8 = 0; # average voice training
+
+$TRACE = 1; # Flag to keep all log files (0 or 1)
+
+
+1;
