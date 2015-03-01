@@ -1,86 +1,38 @@
 #!/bin/bash
-#$ -S /bin/bash
+# Check Number of Args
+if (( "$#" < "1" )); then
+   echo "Usage:"
+   echo "$0 config_file"
+   exit 1
+fi
 
-# bash xadapt-select.sh $WORKDIR"/"$TMPOUTDIR $MODELSDIR $NAVGDIR $j $i $factor $HTSEMO $HTSNEU $TRANSPF0 $TRANSPSPECT $TRANSPDUR $EMOBASE
+# Load configure file
+echo "...Load configure file..."
+CONFIG_FILE=$1
+. ${CONFIG_FILE}
+if (( $?>0 ));then echo "Error; exiting."; exit 1; fi
 
-###########################
-EXP=$1 # path for Experiment directory
-#from=1
-#to=1
-
-VC_PATH="/autofs/home/gth02a/jaime.lorenzo/VCTK/bin"
-CSMAPLR="/autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/adapt/CSMAPLR-transp"
-CSMAPLR_SCRIPT_DIR="$CSMAPLR/scripts"
-CONVERTXFORMS="$CSMAPLR/ConvertXform.py"
+###############################
+EXP="$WORKDIR/$TMPOUTDIR" # path for Experiment directory
 
 LOG_DIR="$EXP/log"
 CFG_DIR="$EXP/config"
-
 mkdir -p $CFG_DIR $LOG_DIR
 
-FLAG_NITERATION=5
-
-#MODELS="/autofs/home/gth07a/EXPERIMENTOS/jaime.lorenzo/CSMAPLRmodels/fromMaleNeutral-News"
-MODELS=$2
-
-#AVGSTYLE="parlamento"
-SPKNEU=$5
-SPKNEU_DIR=$MODELS"/"$SPKNEU
+###############################
+# LOAD TRANSFORMATION FUNCTIONS
+###############################
 AVGNEU_TO_SPKNEU_CMPXFORM=$SPKNEU_DIR/xform/cmp/cmp.feat$FLAG_NITERATION
-#echo $AVGNEU_TO_SPKNEU_CMPXFORM
 AVGNEU_TO_SPKNEU_DURXFORM=$SPKNEU_DIR/xform/dur/cmp.feat$FLAG_NITERATION
 
-AVGNEU_DIR=$3
-#AVGNEU_TO_SPKNEU="JEC_fromNeutralAverage"
-AVGNEU_TO_AVGSTYLE=$4
 AVGNEU_TO_AVGSTYLE_DIR=$MODELS"/"$AVGNEU_TO_AVGSTYLE
 
 AVGNEU_TO_AVGSTYLE_CMPXFORM=$AVGNEU_TO_AVGSTYLE_DIR/xform/cmp/cmp.feat$FLAG_NITERATION
 AVGNEU_TO_AVGSTYLE_DURXFORM=$AVGNEU_TO_AVGSTYLE_DIR/xform/dur/cmp.feat$FLAG_NITERATION
+###############################
 
-#TGT_STYLESPK_VOICE="JEC-parlamento"
-TGT_STYLESPK_VOICE=$5"-"$4"-K"$6
+TGT_STYLESPK_VOICE=$SPKNEU"-"$AVGNEU_TO_AVGSTYLE"-K"$factor
 TGT_STYLESPK_DIR="$CSMAPLR/$EXP/$TGT_STYLESPK_VOICE"
-
-# Style Strength Control Parameters
-K=$6
-#K=0.00
-K2=1.00 # Control for the neutral speaker, default = 1.00
-#K2=$6
-
-## Transplantation streams selection                                                                                                                         
-HTSEMO=$7
-HTSNEU=$8
-TRANSPF0=$9
-TRANSPSPECT=${10}
-TRANSPDUR=${11}
-EMOTIONALBASE=${12}
-
-
-#####################################
-
-# Mel-cepstral analysis 
-mcorder=60
-# Aperiodicity analysis
-baporder=25
-USESMAP=0
-# # of iteration of HERest (>= 1)
-#FLAG_NITERATION=4
-FLAG_NITERATION2=3
-# Apply State duration adaptation as well as 
-# Spectrum, F0 and aperiodicity adaptation 
-FLAG_DUR_ADAPTATION=$11
-# Additional MAP adaptation on the top of CMLLR/CSMAPLR (0 or 1)
-FLAG_MAP_ADAPTATION=0
-FLAG_SMAPSIGMA=100
-# Regression class tree 
-treeprune=100.0
-mcepthresh=4000.0
-f0thresh=500.0
-bapthresh=1000.0
-durthresh=500.0
-# Setting for MAP adaptation 
-maptau=50 
 
 #######################################
 # Apply linear transforms to model    #                                                                                                             
@@ -108,7 +60,6 @@ if [ $TRANSPSPECT -ge 1 ]; then echo "LT \"${AVGNEU_DIR}/tree.mcep.inf\"" > $CFG
 if [ $TRANSPF0 -ge 1 ]; then echo "LT \"${AVGNEU_DIR}/tree.logF0.inf\"" >> $CFG_DIR/xadapt.cmp.${VOICE}.hed; fi
 if [ $TRANSPSPECT -ge 1 ]; then echo "LT \"${AVGNEU_DIR}/tree.bndap.inf\"" >> $CFG_DIR/xadapt.cmp.${VOICE}.hed; fi
 echo "AX \"$EXP/$VOICE/xform/cmp/cmp.spkneu.$K2.feat$FLAG_NITERATION\""   >> $CFG_DIR/xadapt.cmp.$VOICE.hed
-#echo "AX \"$EXP/$VOICE/xform/cmp/cmp.ctrl.$K.feat$FLAG_NITERATION\""   >> $CFG_DIR/xadapt.cmp.$VOICE.hed
 echo "CT \"$EXP/$VOICE/hts_engine\""                      >> $CFG_DIR/xadapt.cmp.$VOICE.hed
 echo "CM \"$EXP/$VOICE/hts_engine\""                      >> $CFG_DIR/xadapt.cmp.$VOICE.hed
 
@@ -174,7 +125,6 @@ fi
 if [ $TRANSPDUR -ge 1 ]; then
     echo "LT \"$AVGNEU_DIR/tree.dur.inf\""            > $CFG_DIR/xadapt.dur.$VOICE.hed
     echo "AX \"$EXP/$VOICE/xform/dur/cmp.spkneu.$K2.feat$FLAG_NITERATION\""   >> $CFG_DIR/xadapt.dur.$VOICE.hed
-#echo "AX \"$EXP/$VOICE/xform/dur/cmp.ctrl.$K.feat$FLAG_NITERATION\""   >> $CFG_DIR/xadapt.dur.$VOICE.hed
     echo "CT \"$EXP/$VOICE/hts_engine\""                      >> $CFG_DIR/xadapt.dur.$VOICE.hed
     echo "CM \"$EXP/$VOICE/hts_engine\""                      >> $CFG_DIR/xadapt.dur.$VOICE.hed
     
@@ -184,8 +134,6 @@ if [ $TRANSPDUR -ge 1 ]; then
     cp $AVGNEU_DIR/dectree_dur.base $EXP/$VOICE
     cp $AVGNEU_DIR/dectree_dur.tree $EXP/$VOICE
     DURTREEARG="-H $EXP/$VOICE/dectree_dur.base -H $EXP/$VOICE/dectree_dur.tree"
-    
-#    -H $EXP/$VOICE/xform/dur/cmp.spkneu.$K2.feat$FLAG_NITERATION\
     
     ${VC_PATH}/HHEd \
 	-A \
@@ -236,15 +184,5 @@ ${VC_PATH}/merge +f -s 5 -l 5 -L 5 $EXP/$VOICE/var < $EXP/$VOICE/mean \
 
 #### FINALIZE THE TRANSPLANTATION
 
-#cp /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$AVGNEU_TO_AVGSTYLE/*win $EXP/$VOICE/hts_engine/
-#cp /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$AVGNEU_TO_AVGSTYLE/gv*  $EXP/$VOICE/hts_engine/
 cp $HTSEMO/gv*  $EXP/$VOICE/hts_engine/
 cp $HTSEMO/*win $EXP/$VOICE/hts_engine/
-#cp /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$SRC_NEUTRALSPK_VOICE/gv*  $EXP/$VOICE/hts_engine/
-#/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/fromNewsNeutralAverage
-
-# GV EXTRAPOLATION
-#echo "----- Extrapolating the global variance of the models with ratio $K -----"
-#bash extrapolate-gv.sh /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$SRC_NEUTRALSPK_VOICE /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$AVG_NEUTRAL_VOICE /autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/$AVG_STYLE_VOICE $K
-#mv gv* $EXP/$VOICE/hts_engine/
-#echo "----- Model Extrapolation from $SRC_NEUTRALSPK_VOICE to $AVG_STYLE_VOICE finished! -----"

@@ -1,0 +1,45 @@
+### GENERAL SETTINGS###
+
+### ITERATION ###
+FLAG_NITERATION=5;
+
+### STREAMSELECTION ###                                                                                                                                     
+TRANSPF0=1;
+TRANSPSPECT=1;
+TRANSPDUR=1;
+EMOBASE=0;
+
+# Style Strength Control Parameters
+factor=1.00
+K2=1.00 # Control for the neutral speaker, default = 1.00
+
+#TEMPORAL OUTPUT DIRECTORI
+TMPOUTDIR="XADAPT_BTWiN_"${TRANSP_STYLE}"_and_"${TRANSP_NEUTRAL_TARGET}"-K"$factor
+
+# Mel-cepstral analysis 
+mcorder=60
+
+# Aperiodicity analysis
+baporder=25
+USESMAP=0
+
+# # of iteration of HERest (>= 1)
+FLAG_NITERATION2=3
+
+# Apply State duration adaptation as well as 
+# Spectrum, F0 and aperiodicity adaptation 
+FLAG_DUR_ADAPTATION=$11
+
+# Additional MAP adaptation on the top of CMLLR/CSMAPLR (0 or 1)
+FLAG_MAP_ADAPTATION=0
+FLAG_SMAPSIGMA=100
+
+# Regression class tree 
+treeprune=100.0
+mcepthresh=4000.0
+f0thresh=500.0
+bapthresh=1000.0
+durthresh=500.0
+
+# Setting for MAP adaptation 
+maptau=50 

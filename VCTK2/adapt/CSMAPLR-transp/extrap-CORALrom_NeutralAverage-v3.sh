@@ -6,11 +6,16 @@ ratio=( "1.00" )
 
 OUTDIR=Male-Styles
 mkdir -p $OUTDIR > /dev/null
-WORKDIR="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/adapt/CSMAPLR-transp"
-MODELSDIR="/autofs/home/gth07a/EXPERIMENTOS/jaime.lorenzo/CSMAPLRmodels/NeutralAverage_fromjoa-emos_NeuSpk"
-NAVGDIR="/autofs/home/gth07a/EXPERIMENTOS/jaime.lorenzo/CSMAPLRmodels/joa-emos_NeuSpk/NeutralAverage"
-HTSEMOBASE="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/joa-neutral_fromNeutralAverage_fromjoa-emos_NeuSpk"
-HTSNEUBASE="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/NeutralAverage_fromjoa-emos_NeuSpk"
+#WORKDIR="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/adapt/CSMAPLR-transp"
+WORKDIR="/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2/Research-Demo/adapt/CSMAPLR-transp"
+#MODELSDIR="/autofs/home/gth07a/EXPERIMENTOS/jaime.lorenzo/CSMAPLRmodels/NeutralAverage_fromjoa-emos_NeuSpk"
+MODELSDIR="/home/gth08a/EXPERIMENTOS/jorgesanjuan/CSMAPLRmodels/joa-neutral_fromNeutralAverage_fromjoa-emos_NeuSpk"
+#NAVGDIR="/autofs/home/gth07a/EXPERIMENTOS/jaime.lorenzo/CSMAPLRmodels/joa-emos_NeuSpk/NeutralAverage"
+NAVGDIR="/home/gth08a/EXPERIMENTOS/jorgesanjuan/CSMAPLRmodels/NeutralAverage_fromjoa-emos_NeuSpk/joa-neutral"
+#HTSEMOBASE="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/joa-neutral_fromNeutralAverage_fromjoa-emos_NeuSpk"
+HTSEMOBASE="/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2/Research-Demo/inter-module/hts_engine/Spa/joa-neutral_fromNeutralAverage_fromjoa-emos_NeuSpk"
+#HTSNEUBASE="/autofs/home/gth00a/jaime.lorenzo/VCTK/Research-Demo/inter-module/hts_engine/Spa/NeutralAverage_fromjoa-emos_NeuSpk"
+HTSNEUBASE="/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2/Research-Demo/inter-module/hts_engine/Spa/joa-neutral_fromNeutralAverage_fromjoa-emos_NeuSpk"
 
 ### STREAMSELECTION ###                                                                                                                                     
 

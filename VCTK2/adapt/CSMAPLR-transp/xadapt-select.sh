@@ -6,8 +6,10 @@
 ###########################
 EXP=$1 # path for Experiment directory
 
-VC_PATH="/autofs/home/gth02a/jaime.lorenzo/VCTK/bin"
-CSMAPLR="/autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/adapt/CSMAPLR-transp"
+#VC_PATH="/autofs/home/gth02a/jaime.lorenzo/VCTK/bin"
+VC_PATH="/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2/bin"
+#CSMAPLR="/autofs/home/gth02a/jaime.lorenzo/VCTK/Research-Demo/adapt/CSMAPLR-transp"
+CSMAPLR="/home/gth08a/EXPERIMENTOS/jorgesanjuan/VCTK2/Research-Demo/adapt/CSMAPLR-transp"
 CSMAPLR_SCRIPT_DIR="$CSMAPLR/scripts"
 CONVERTXFORMS="$CSMAPLR/ConvertXform.py"
 
